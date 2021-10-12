@@ -13,8 +13,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'lo
     Route::get('/users/profile', 'UserController@profile')->name('profile_users');
     Route::post('/users/update/{id}', 'UserController@update')->name('update_users');
     Route::get('/users/show/{id}', 'UserController@show')->name('show_users');
+    Route::get('/users/premissions/{id}', 'UserController@premissions')->name('premissions_users');
+    Route::get('/users/assign-premissions/{id}', 'UserController@assignPremissions')->name('assign_premissions_users');
     Route::get('/users/delete/{id}', 'UserController@destroy')->name('destroy_users');
     Route::post('/users/logout', 'UserController@logout')->name('logout_users');
-
-    Route::get('/deleteMedia/{id}','HomeController@deleteMedia')->name('delete_media');
 });
