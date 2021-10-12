@@ -45,7 +45,8 @@
             "Roles\\": "app/Modules/Roles/",
             "Translates\\": "app/Modules/Translates/",
             "MainSettings\\": "app/Modules/MainSettings/",
-            "Blogs\\": "app/Modules/Blogs/"
+            "Departments\\": "app/Modules/Departments/",
+            "Sales\\": "app/Modules/Sales/"
         },
         "files": [
             "app/helper/helper.php"

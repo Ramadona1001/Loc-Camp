@@ -1,12 +1,14 @@
 <?php
 
 use App\User;
+use Departments\Models\DepartmentManager;
 use ModelAttachments\Models\ModelAttachment;
 use ModelQuizzes\Models\ModelQuiz;
 use Pages\Models\Page;
 use Projects\Models\Project;
 use ProjectUtilities\Models\ProjectUtilities;
 use Properties\Models\Properties;
+use Sales\Models\LeadFollow;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -28,12 +30,12 @@ function BuildFields($name , $value = null , $type="text" ,$other = null){
     }
     foreach($lang as  $key => $lan){
         $newValue = $value != null ? $value[$lan] : null;
-        $out .='<div class="col-lg-6" style="margin-bottom:10px;">';
-        $out .='<label for="'.$name.'['.$lan.']" >'.ucfirst($name).' Language ['.$lan.']</label >';
+        $out .='<div class="col-lg-12" style="margin-bottom:10px;">';
+        $out .='<label for="'.$name.'['.$lan.']" >'.ucfirst($name).'</label >';
         if($type != 'textarea'){
-            $out .='<input type = "'.$type.'" class="form-control"  name="'.$name.'['.$lan.']" id = "'.$name.'['.$lan.']" placeholder="'.$name.' in '.$lan.'" '.$others.' value="'.$newValue.'"  />';
+            $out .='<input type = "'.$type.'" class="form-control "  name="'.$name.'['.$lan.']" id = "'.$name.'['.$lan.']" placeholder="Please Enter '.$name.'" '.$others.' value="'.$newValue.'"  />';
         }else{
-            $out .='<textarea name="'.$name.'['.$lan.']" id="'.$name.'['.$lan.']" class="form-control ckeditor">'.$newValue.'</textarea>';
+            $out .='<textarea name="'.$name.'['.$lan.']" id="'.$name.'['.$lan.']" class="form-control ckeditor" placeholder="Please Enter '.$name.'" '.$others.' value="'.$newValue.'">'.$newValue.'</textarea>';
         }
         $out .='</div>';
     }
@@ -130,25 +132,18 @@ function statisticsWidget($data){
 function breadcrumbWidget($currentPageName,$pages){
     $breadcrumb = '';
     if (count($pages) == 0) {
-        $breadcrumb = '<h5 class="content-header-title float-left pr-1 mb-0">'.$currentPageName.'</h5>';
+        $breadcrumb = '<li class="breadcrumb-item" style="color: #ffffff;font-weight:bold;"><i class="fa fa-bars"></i>&nbsp;'.$currentPageName.'</li>';
     }else{
-        $breadcrumb .= '
-        <h5 class="content-header-title float-left pr-1 mb-0">'.$currentPageName.'</h5>
-        <div class="breadcrumb-wrapper d-none d-sm-block">
-            <ol class="breadcrumb p-0 mb-0 pl-1">';
-            $breadcrumb .= '<li class="breadcrumb-item"><a href="'.route("home").'">'.transWord('Home').'</a></li>';
+        $breadcrumb .= '<li class="breadcrumb-item"><a style="color: #ffffff;font-weight:bold;" href="'.route("home").'"><i class="fa fa-home"></i>&nbsp;'.transWord('Home').'</a></li>';
             for ($i=0; $i < count($pages); $i++) {
                 if ($pages[$i][1] == '' || $pages[$i][1] == '#') {
-                    $breadcrumb .= '<li class="breadcrumb-item"><a href="">'.$pages[$i][0].'</a></li>';
+                    $breadcrumb .= '<li class="breadcrumb-item"><a style="color: #ffffff;font-weight:bold;" href=""><i class="fa fa-bars"></i>&nbsp;'.$pages[$i][0].'</a></li>';
                 }else if(is_array($pages[$i][1])){
-                    $breadcrumb .= '<li class="breadcrumb-item"><a href="'.route($pages[$i][1][0],$pages[$i][1][1]).'">'.$pages[$i][0].'</a></li>';
+                    $breadcrumb .= '<li class="breadcrumb-item"><a style="color: #ffffff;font-weight:bold;" href="'.route($pages[$i][1][0],$pages[$i][1][1]).'"><i class="fa fa-bars"></i>&nbsp;'.$pages[$i][0].'</a></li>';
                 }else{
-                    $breadcrumb .= '<li class="breadcrumb-item"><a href="'.route($pages[$i][1]).'">'.$pages[$i][0].'</a></li>';
+                    $breadcrumb .= '<li class="breadcrumb-item"><a style="color: #ffffff;font-weight:bold;" href="'.route($pages[$i][1]).'"><i class="fa fa-bars"></i>&nbsp;'.$pages[$i][0].'</a></li>';
                 }
             }
-            $breadcrumb .= '</ol>
-        </nav>
-        ';
     }
     return $breadcrumb;
 }
@@ -419,33 +414,91 @@ function setPublic()
     }
 }
 
-function buildTable($title,$thead,$tbody)
+function getSocialMediaFromWebSite($url)
 {
-    $output = '';
-    $output .= '<div class="card">';
-        $output .= '<div class="card-header">';
-            $output .= '<h4 class="card-title">'.$title.'</h4>';
-        $output .= '</div>';
-        $output .= '<div class="card-body">';
-            $output .= '<div class="table-responsive">';
-                $output .= '<table class="table table-bordered mb-0">';
-                    $output .= '<thead>';
-                        $output .= '<tr>';
-                            foreach ($thead as $th) {
-                                $output .= $th;
-                            }
-                        $output .= '</tr>';
-                    $output .= '</thead>';
-                    $output .= '<tbody>';
-                        $output .= '<tr>';
-                            foreach ($tbody as $body) {
-                                $output .= $body;
-                            }
-                        $output .= '</tr>';
-                    $output .= '</tbody>';
-                $output .= '</table>';
-            $output .= '</div>';
-        $output .= '</div>';
-    $output .= '</div>';
-    return $output;
+    $pattern = '~[a-z]+://\S+~';
+    $socialMedia = [];
+    $options = array(
+        CURLOPT_RETURNTRANSFER => true, // return web page
+        CURLOPT_HEADER => false, // don’t return headers
+        CURLOPT_FOLLOWLOCATION => true, // follow redirects
+        CURLOPT_ENCODING => "", // handle all encodings
+        CURLOPT_USERAGENT => "spider", // who am i
+        CURLOPT_AUTOREFERER => true, // set referer on redirect
+        CURLOPT_CONNECTTIMEOUT => 120, // timeout on connect
+        CURLOPT_TIMEOUT => 120, // timeout on response
+        CURLOPT_MAXREDIRS => 10, // stop after 10 redirects
+    );
+    $ch = curl_init( $url );
+    curl_setopt_array( $ch, $options );
+    $content = curl_exec( $ch );
+    curl_close( $ch );
+    if($num_found = preg_match_all($pattern, $content, $out))
+    {
+        foreach ($out[0] as $link) {
+            if (strpos($link, 'facebook') !== false) {
+                $socialMedia['facebook'] = $link;
+            }
+            if (strpos($link, 'twitter') !== false) {
+                $socialMedia['twitter'] = $link;
+            }
+            if (strpos($link, 'linkedin') !== false) {
+                $socialMedia['linkedin'] = $link;
+            }
+            if (strpos($link, 'youtube') !== false) {
+                $socialMedia['youtube'] = $link;
+            }
+            if (strpos($link, 'whatsapp') !== false) {
+                $socialMedia['whatsapp'] = $link;
+            }
+        }
+    }
+
+    return $socialMedia;
+}
+
+function getTitleFromWebSite($url){
+    $str = file_get_contents($url);
+    if(strlen($str)>0){
+        $str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
+        preg_match("/\<title\>(.*)\<\/title\>/i",$str,$title); // ignore case
+        return (count($title) > 0) ? $title[1] : $title;
+    }
+}
+
+
+function getDepartmentManagersIds($id)
+{
+    return DepartmentManager::where('department_id',$id)->get()->pluck('user_id')->toArray();
+}
+
+function getDepartmentManagers($id)
+{
+    return DepartmentManager::where('department_id',$id)->get();
+}
+
+function getLeadContact($type,$data)
+{
+    $result = [];
+    if ($type == 'tel') {
+        foreach ($data as $tel) {
+            $result[] = '<a href="tel:'.$tel.'" class="btn btn-primary btn-block btn-sm"><i class="fa fa-phone"></i>&nbsp;Call Me</a>';
+        }
+    }
+    if ($type == 'mail') {
+        foreach ($data as $mail) {
+            $result[] = '<a href="mailto:'.$mail.'" class="btn btn-primary btn-block btn-sm"><i class="fa fa-phone"></i>&nbsp;Send Me</a>';
+        }
+    }
+    if ($type == 'social') {
+        foreach ($data as $key => $social) {
+            $result[] = '<a style="text-transform: capitalize;" target="_blank" href="'.$social.'" class="btn btn-primary btn-block btn-sm">'.$key.'</a>';
+        }
+    }
+    return $result;
+}
+
+function getLeadFollow($leadId)
+{
+    return LeadFollow::where('lead_id',$leadId)->get();
 }

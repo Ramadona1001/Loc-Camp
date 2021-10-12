@@ -9,20 +9,22 @@ use Auth;
 use Spatie\Permission\Models\Role;
 use File;
 use Hash;
+use Roles\Repositories\RoleRepository;
 
 class UserController extends Controller
 {
-    public $path = 'backend.pages.users.';
+    public $path = 'pages.users.';
+    private $roleRepository;
 
-    public function __construct()
+    public function __construct(RoleRepository $roleRepository)
     {
         $this->middleware('auth');
+        $this->roleRepository = $roleRepository;
     }
 
     public function index()
     {
-
-
+        hasPermissions('show_users');
         $title = transWord('Users');
         $pages = [
             [transWord('Users'),'users']
@@ -33,6 +35,7 @@ class UserController extends Controller
 
     public function create()
     {
+        hasPermissions('create_users');
         $title = transWord('Create New User');
         $pages = [
             [transWord('Users'),'users'],
@@ -44,6 +47,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        hasPermissions('create_users');
         $request->validate([
             'name' => 'required|min:2|max:255',
             'email' => 'required|email|unique:users',
@@ -54,17 +58,6 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-
-        $pathImage = public_path().'/uploads/backend/users/';
-        File::makeDirectory($pathImage, $mode = 0777, true, true);
-
-        if ($request->hasFile('avatar')){
-            $imageName = time().'.'.request()->avatar->getClientOriginalExtension();
-            $request->avatar->move($pathImage, $imageName);
-            $user->avatar = $imageName;
-        }else{
-            $user->avatar = 'avatar.png';
-        }
         $user->save();
         foreach ($request->roles as $role) {
             $roleName = Role::findOrfail($role);
@@ -75,6 +68,7 @@ class UserController extends Controller
 
     public function show($id)
     {
+        hasPermissions('show_users');
         $title =transWord('Show User Data');
         $user = User::findOrfail($id);
         $pages = [
@@ -84,8 +78,32 @@ class UserController extends Controller
         return view($this->path.'show',compact('user','pages','title'));
     }
 
+    public function premissions($id)
+    {
+        hasPermissions('premissions_users');
+        $title =transWord('Assign Premssions To User');
+        $user = User::findOrfail($id);
+        $pages = [
+            [transWord('Users'),'users'],
+            [$user->name,'']
+        ];
+        $permissionsName = $this->roleRepository->getUserPermissions($id)[0];
+        $user = $this->roleRepository->getUserPermissions($id)[1];
+        $permissions = $this->roleRepository->getUserPermissions($id)[2];
+        $assignedPermissions = $this->roleRepository->getUserPermissions($id)[3];
+
+        return view($this->path.'permissions',compact('permissionsName','user','permissions','assignedPermissions','pages','title'));
+    }
+
+    public function assignPremissions(Request $request,$id)
+    {
+        hasPermissions('premissions_users');
+        $this->roleRepository->assignUserPermissions($id,$request);
+    }
+
     public function edit($id)
     {
+        hasPermissions('update_users');
         $title =transWord('Edit User Data');
         $user = User::findOrfail($id);
         $showUrl = route('show_users', ['id'=>$user->id]);
@@ -99,6 +117,7 @@ class UserController extends Controller
 
     public function profile()
     {
+        hasPermissions('show_users');
         $title =transWord('Edit My Profile');
         $user = Auth::user();
         $pages = [
@@ -110,6 +129,7 @@ class UserController extends Controller
 
     public function update($id,Request $request)
     {
+        hasPermissions('update_users');
         $user = User::findOrfail($id);
 
         if ($request->password) {
@@ -160,6 +180,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
+        hasPermissions('delete_users');
         $user = User::findOrfail($id);
         if($user->avatar != 'avatar'){
             $image_path = public_path($user->avatar);
