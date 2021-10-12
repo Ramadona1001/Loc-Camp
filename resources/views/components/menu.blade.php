@@ -1,41 +1,113 @@
-<div class="header-navbar navbar-expand-sm navbar navbar-horizontal navbar-sticky navbar-dark navbar-without-dd-arrow" role="navigation" data-menu="menu-wrapper">
-    <div class="navbar-header d-xl-none d-block">
-        <ul class="nav navbar-nav flex-row">
-            <li class="nav-item mr-auto"><a class="navbar-brand" href="index.html">
-                    <div class="brand-logo"><img class="logo" src="../../../app-assets/images/logo/logo.png" /></div>
-                    <h2 class="brand-text mb-0">Frest</h2>
-                </a></li>
-            <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="bx bx-x d-block d-xl-none font-medium-4 primary toggle-icon"></i></a></li>
-        </ul>
-    </div>
-    <div class="shadow-bottom"></div>
-    <!-- Horizontal menu content-->
-    <div class="navbar-container main-menu-content" data-menu="menu-container">
-        <!-- include ../../../includes/mixins-->
-        <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
-            @can('show_roles')
-            <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="{{ route('roles') }}" data-toggle="dropdown"><i class="menu-livicon" data-icon="lock"></i><span data-i18n="Dashboard">{{ transWord('Roles') }}</span></a>
-                <ul class="dropdown-menu">
-                    <li class="{{ menuActive('roles',3) }}"><a class="dropdown-item align-items-center" href="{{ route('roles') }}" data-toggle="dropdown"><i class="bx bx-right-arrow-alt"></i>{{ transWord('Roles') }}</a></li>
+<div class="main-menu-area mg-tb-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro">
+                    <li class="active"><a data-toggle="tab" href="#Home"><i class="fa fa-home"></i> Authentication</a>
+                    </li>
+                    <li><a data-toggle="tab" href="#mailbox"><i class="notika-icon notika-mail"></i> Departments</a>
+                    </li>
+                    <li><a data-toggle="tab" href="#Interface"><i class="notika-icon notika-edit"></i> Sales</a>
+                    </li>
+                    <li><a data-toggle="tab" href="#Tables"><i class="notika-icon notika-windows"></i> Tables</a>
+                    </li>
+                    <li><a data-toggle="tab" href="#Forms"><i class="notika-icon notika-form"></i> Forms</a>
+                    </li>
+                    <li><a data-toggle="tab" href="#Appviews"><i class="notika-icon notika-app"></i> App views</a>
+                    </li>
+                    <li><a data-toggle="tab" href="#Page"><i class="notika-icon notika-support"></i> Pages</a>
+                    </li>
                 </ul>
-            </li>
-            @endcan
-
-            @can('show_users')
-            <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="{{ route('users') }}" data-toggle="dropdown"><i class="menu-livicon" data-icon="users"></i><span data-i18n="Dashboard">{{ transWord('Accounts') }}</span></a>
-                <ul class="dropdown-menu">
-                    @can('create_users')
-                        <li class="{{ menuActive('users',3) }}"><a class="dropdown-item align-items-center" href="{{ route('users') }}" data-toggle="dropdown"><i class="bx bx-right-arrow-alt"></i>{{ transWord('New Account') }}</a></li>
-                    @endcan
-
-                    @can('show_users')
-                        <li class="{{ menuActive('users',3) }}"><a class="dropdown-item align-items-center" href="{{ route('create_users') }}" data-toggle="dropdown"><i class="bx bx-right-arrow-alt"></i>{{ transWord('Accounts') }}</a></li>
-                    @endcan
-                </ul>
-            </li>
-            @endcan
-            
-        </ul>
+                <div class="tab-content custom-menu-content">
+                    <div id="Home" class="tab-pane active in notika-tab-menu-bg animated flipInX">
+                        <ul class="notika-main-menu-dropdown">
+                            <li><a href="{{ route('roles') }}">Roles & Permissions</a></li>
+                            <li><a href="{{ route('create_users') }}">New Account</a></li>
+                            <li><a href="{{ route('users') }}">All Accounts</a></li>
+                        </ul>
+                    </div>
+                    <div id="mailbox" class="tab-pane notika-tab-menu-bg animated flipInX">
+                        <ul class="notika-main-menu-dropdown">
+                            <li><a href="{{ route('create_departments') }}">New Department</a></li>
+                            <li><a href="{{ route('departments') }}">All Departments</a></li>
+                        </ul>
+                    </div>
+                    <div id="Interface" class="tab-pane notika-tab-menu-bg animated flipInX">
+                        <ul class="notika-main-menu-dropdown">
+                            <li><a href="{{ route('create_leads') }}">New Lead</a>
+                            </li>
+                            <li><a href="{{ route('leads') }}">Leads</a>
+                            </li>
+                            <li><a href="data-map.html">Data Maps</a>
+                            </li>
+                            <li><a href="code-editor.html">Code Editor</a>
+                            </li>
+                            <li><a href="image-cropper.html">Images Cropper</a>
+                            </li>
+                            <li><a href="wizard.html">Wizard</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="Tables" class="tab-pane notika-tab-menu-bg animated flipInX">
+                        <ul class="notika-main-menu-dropdown">
+                            <li><a href="normal-table.html">Normal Table</a>
+                            </li>
+                            <li><a href="data-table.html">Data Table</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="Forms" class="tab-pane notika-tab-menu-bg animated flipInX">
+                        <ul class="notika-main-menu-dropdown">
+                            <li><a href="form-elements.html">Form Elements</a>
+                            </li>
+                            <li><a href="form-components.html">Form Components</a>
+                            </li>
+                            <li><a href="form-examples.html">Form Examples</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="Appviews" class="tab-pane notika-tab-menu-bg animated flipInX">
+                        <ul class="notika-main-menu-dropdown">
+                            <li><a href="notification.html">Notifications</a>
+                            </li>
+                            <li><a href="alert.html">Alerts</a>
+                            </li>
+                            <li><a href="modals.html">Modals</a>
+                            </li>
+                            <li><a href="buttons.html">Buttons</a>
+                            </li>
+                            <li><a href="tabs.html">Tabs</a>
+                            </li>
+                            <li><a href="accordion.html">Accordion</a>
+                            </li>
+                            <li><a href="dialog.html">Dialogs</a>
+                            </li>
+                            <li><a href="popovers.html">Popovers</a>
+                            </li>
+                            <li><a href="tooltips.html">Tooltips</a>
+                            </li>
+                            <li><a href="dropdown.html">Dropdowns</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="Page" class="tab-pane notika-tab-menu-bg animated flipInX">
+                        <ul class="notika-main-menu-dropdown">
+                            <li><a href="contact.html">Contact</a>
+                            </li>
+                            <li><a href="invoice.html">Invoice</a>
+                            </li>
+                            <li><a href="typography.html">Typography</a>
+                            </li>
+                            <li><a href="color.html">Color</a>
+                            </li>
+                            <li><a href="login-register.html">Login Register</a>
+                            </li>
+                            <li><a href="404.html">404 Page</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /horizontal menu content-->
 </div>

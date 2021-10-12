@@ -1,193 +1,280 @@
-<nav class="header-navbar navbar-expand-lg navbar navbar-with-menu navbar-static-top bg-primary navbar-brand-center">
-    <div class="navbar-header d-xl-block d-none">
-        <ul class="nav navbar-nav flex-row">
-            <li class="nav-item"><a class="navbar-brand" href="{{ route('home') }}">
-                    @if(mainSettingsData() != null)
-                    <div class="brand-logo"><img class="logo" src="{{ URL('/').'/'.setPublic() }}uploads/backend/settings/{{ mainSettingsData()['logo'] }}"></div>
-                    <h2 class="brand-text mb-0">{{ mainSettingsData()['title'] }}</h2>
-                    @else
-                    {{ transWord('Dashboard') }}
-                    @endif
-                </a></li>
-        </ul>
-    </div>
-    <div class="navbar-wrapper">
-        <div class="navbar-container content">
-            <div class="navbar-collapse" id="navbar-mobile">
-                <div class="mr-auto float-left bookmark-wrapper d-flex align-items-center">
-                    <ul class="nav navbar-nav">
-                        <li class="nav-item mobile-menu mr-auto"><a class="nav-link nav-menu-main menu-toggle" href="#"><i class="bx bx-menu"></i></a></li>
-                    </ul>
-                    <ul class="nav navbar-nav bookmark-icons">
-                        <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-email.html" data-toggle="tooltip" data-placement="top" title="Email"><i class="ficon bx bx-envelope"></i></a></li>
-                        <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-chat.html" data-toggle="tooltip" data-placement="top" title="Chat"><i class="ficon bx bx-chat"></i></a></li>
-                        <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-todo.html" data-toggle="tooltip" data-placement="top" title="Todo"><i class="ficon bx bx-check-circle"></i></a></li>
-                        <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-calendar.html" data-toggle="tooltip" data-placement="top" title="Calendar"><i class="ficon bx bx-calendar-alt"></i></a></li>
-                    </ul>
-                    <ul class="nav navbar-nav">
-                        <li class="nav-item d-none d-lg-block"><a class="nav-link bookmark-star"><i class="ficon bx bx-star warning"></i></a>
-                            <div class="bookmark-input search-input">
-                                <div class="bookmark-input-icon"><i class="bx bx-search primary"></i></div>
-                                <input class="form-control input" type="text" placeholder="Explore Frest..." tabindex="0" data-search="template-search">
-                                <ul class="search-list"></ul>
+<div class="header-top-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="logo-area">
+                    <a href="" style="font-size: 22px; font-weight: bold; color: white;">LOC CAMP</a>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <div class="header-top-menu">
+                    <ul class="nav navbar-nav notika-top-nav">
+                        <li class="nav-item dropdown">
+                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="notika-icon notika-search"></i></span></a>
+                            <div role="menu" class="dropdown-menu search-dd animated flipInX">
+                                <div class="search-input">
+                                    <i class="notika-icon notika-left-arrow"></i>
+                                    <input type="text" />
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="notika-icon notika-mail"></i></span></a>
+                            <div role="menu" class="dropdown-menu message-dd animated zoomIn">
+                                <div class="hd-mg-tt">
+                                    <h2>Messages</h2>
+                                </div>
+                                <div class="hd-message-info">
+                                    <a href="#">
+                                        <div class="hd-message-sn">
+                                            <div class="hd-message-img">
+                                                <img src="img/post/1.jpg" alt="" />
+                                            </div>
+                                            <div class="hd-mg-ctn">
+                                                <h3>David Belle</h3>
+                                                <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class="hd-message-sn">
+                                            <div class="hd-message-img">
+                                                <img src="img/post/2.jpg" alt="" />
+                                            </div>
+                                            <div class="hd-mg-ctn">
+                                                <h3>Jonathan Morris</h3>
+                                                <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class="hd-message-sn">
+                                            <div class="hd-message-img">
+                                                <img src="img/post/4.jpg" alt="" />
+                                            </div>
+                                            <div class="hd-mg-ctn">
+                                                <h3>Fredric Mitchell</h3>
+                                                <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class="hd-message-sn">
+                                            <div class="hd-message-img">
+                                                <img src="img/post/1.jpg" alt="" />
+                                            </div>
+                                            <div class="hd-mg-ctn">
+                                                <h3>David Belle</h3>
+                                                <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class="hd-message-sn">
+                                            <div class="hd-message-img">
+                                                <img src="img/post/2.jpg" alt="" />
+                                            </div>
+                                            <div class="hd-mg-ctn">
+                                                <h3>Glenn Jecobs</h3>
+                                                <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="hd-mg-va">
+                                    <a href="#">View All</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item nc-al"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="notika-icon notika-alarm"></i></span><div class="spinner4 spinner-4"></div><div class="ntd-ctn"><span>3</span></div></a>
+                            <div role="menu" class="dropdown-menu message-dd notification-dd animated zoomIn">
+                                <div class="hd-mg-tt">
+                                    <h2>Notification</h2>
+                                </div>
+                                <div class="hd-message-info">
+                                    <a href="#">
+                                        <div class="hd-message-sn">
+                                            <div class="hd-message-img">
+                                                <img src="img/post/1.jpg" alt="" />
+                                            </div>
+                                            <div class="hd-mg-ctn">
+                                                <h3>David Belle</h3>
+                                                <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class="hd-message-sn">
+                                            <div class="hd-message-img">
+                                                <img src="img/post/2.jpg" alt="" />
+                                            </div>
+                                            <div class="hd-mg-ctn">
+                                                <h3>Jonathan Morris</h3>
+                                                <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class="hd-message-sn">
+                                            <div class="hd-message-img">
+                                                <img src="img/post/4.jpg" alt="" />
+                                            </div>
+                                            <div class="hd-mg-ctn">
+                                                <h3>Fredric Mitchell</h3>
+                                                <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class="hd-message-sn">
+                                            <div class="hd-message-img">
+                                                <img src="img/post/1.jpg" alt="" />
+                                            </div>
+                                            <div class="hd-mg-ctn">
+                                                <h3>David Belle</h3>
+                                                <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class="hd-message-sn">
+                                            <div class="hd-message-img">
+                                                <img src="img/post/2.jpg" alt="" />
+                                            </div>
+                                            <div class="hd-mg-ctn">
+                                                <h3>Glenn Jecobs</h3>
+                                                <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="hd-mg-va">
+                                    <a href="#">View All</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="notika-icon notika-menus"></i></span><div class="spinner4 spinner-4"></div><div class="ntd-ctn"><span>2</span></div></a>
+                            <div role="menu" class="dropdown-menu message-dd task-dd animated zoomIn">
+                                <div class="hd-mg-tt">
+                                    <h2>Tasks</h2>
+                                </div>
+                                <div class="hd-message-info hd-task-info">
+                                    <div class="skill">
+                                        <div class="progress">
+                                            <div class="lead-content">
+                                                <p>HTML5 Validation Report</p>
+                                            </div>
+                                            <div class="progress-bar wow fadeInLeft" data-progress="95%" style="width: 95%;" data-wow-duration="1.5s" data-wow-delay="1.2s"> <span>95%</span>
+                                            </div>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="lead-content">
+                                                <p>Google Chrome Extension</p>
+                                            </div>
+                                            <div class="progress-bar wow fadeInLeft" data-progress="85%" style="width: 85%;" data-wow-duration="1.5s" data-wow-delay="1.2s"><span>85%</span> </div>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="lead-content">
+                                                <p>Social Internet Projects</p>
+                                            </div>
+                                            <div class="progress-bar wow fadeInLeft" data-progress="75%" style="width: 75%;" data-wow-duration="1.5s" data-wow-delay="1.2s"><span>75%</span> </div>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="lead-content">
+                                                <p>Bootstrap Admin</p>
+                                            </div>
+                                            <div class="progress-bar wow fadeInLeft" data-progress="65%" style="width: 65%;" data-wow-duration="1.5s" data-wow-delay="1.2s"><span>65%</span> </div>
+                                        </div>
+                                        <div class="progress progress-bt">
+                                            <div class="lead-content">
+                                                <p>Youtube App</p>
+                                            </div>
+                                            <div class="progress-bar wow fadeInLeft" data-progress="55%" style="width: 55%;" data-wow-duration="1.5s" data-wow-delay="1.2s"><span>55%</span> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="hd-mg-va">
+                                    <a href="#">View All</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="notika-icon notika-chat"></i></span></a>
+                            <div role="menu" class="dropdown-menu message-dd chat-dd animated zoomIn">
+                                <div class="hd-mg-tt">
+                                    <h2>Chat</h2>
+                                </div>
+                                <div class="search-people">
+                                    <i class="notika-icon notika-left-arrow"></i>
+                                    <input type="text" placeholder="Search People" />
+                                </div>
+                                <div class="hd-message-info">
+                                    <a href="#">
+                                        <div class="hd-message-sn">
+                                            <div class="hd-message-img chat-img">
+                                                <img src="img/post/1.jpg" alt="" />
+                                                <div class="chat-avaible"><i class="notika-icon notika-dot"></i></div>
+                                            </div>
+                                            <div class="hd-mg-ctn">
+                                                <h3>David Belle</h3>
+                                                <p>Available</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class="hd-message-sn">
+                                            <div class="hd-message-img chat-img">
+                                                <img src="img/post/2.jpg" alt="" />
+                                            </div>
+                                            <div class="hd-mg-ctn">
+                                                <h3>Jonathan Morris</h3>
+                                                <p>Last seen 3 hours ago</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class="hd-message-sn">
+                                            <div class="hd-message-img chat-img">
+                                                <img src="img/post/4.jpg" alt="" />
+                                            </div>
+                                            <div class="hd-mg-ctn">
+                                                <h3>Fredric Mitchell</h3>
+                                                <p>Last seen 2 minutes ago</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class="hd-message-sn">
+                                            <div class="hd-message-img chat-img">
+                                                <img src="img/post/1.jpg" alt="" />
+                                                <div class="chat-avaible"><i class="notika-icon notika-dot"></i></div>
+                                            </div>
+                                            <div class="hd-mg-ctn">
+                                                <h3>David Belle</h3>
+                                                <p>Available</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class="hd-message-sn">
+                                            <div class="hd-message-img chat-img">
+                                                <img src="img/post/2.jpg" alt="" />
+                                                <div class="chat-avaible"><i class="notika-icon notika-dot"></i></div>
+                                            </div>
+                                            <div class="hd-mg-ctn">
+                                                <h3>Glenn Jecobs</h3>
+                                                <p>Available</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="hd-mg-va">
+                                    <a href="#">View All</a>
+                                </div>
                             </div>
                         </li>
                     </ul>
                 </div>
-                <ul class="nav navbar-nav float-right d-flex align-items-center">
-                    @can('show_translates')
-                    <li class="dropdown dropdown-language nav-item">
-                        <a class="dropdown-toggle nav-link" id="dropdown-flag" href="{{ route('langs') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="flag-icon flag-icon-us"></i><span class="selected-language d-lg-inline d-none">{{ transWord('Translate') }}</span></a>
-                    </li>
-                    @endcan
-
-                    <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon bx bx-fullscreen"></i></a></li>
-                    <li class="nav-item nav-search"><a class="nav-link nav-link-search pt-2"><i class="ficon bx bx-search"></i></a>
-                        <div class="search-input">
-                            <div class="search-input-icon"><i class="bx bx-search primary"></i></div>
-                            <input class="input" type="text" placeholder="Explore Frest..." tabindex="-1" data-search="template-search">
-                            <div class="search-input-close"><i class="bx bx-x"></i></div>
-                            <ul class="search-list"></ul>
-                        </div>
-                    </li>
-                    <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon bx bx-bell bx-tada bx-flip-horizontal"></i><span class="badge badge-pill badge-danger badge-up">5</span></a>
-                        <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
-                            <li class="dropdown-menu-header">
-                                <div class="dropdown-header px-1 py-75 d-flex justify-content-between"><span class="notification-title">7 new Notification</span><span class="text-bold-400 cursor-pointer">Mark all as read</span></div>
-                            </li>
-                            <li class="scrollable-container media-list"><a class="d-flex justify-content-between" href="javascript:void(0)">
-                                    <div class="media d-flex align-items-center">
-                                        <div class="media-left pr-0">
-                                            <div class="avatar mr-1 m-0"><img src="../../../app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="39" width="39"></div>
-                                        </div>
-                                        <div class="media-body">
-                                            <h6 class="media-heading"><span class="text-bold-500">Congratulate Socrates Itumay</span> for work anniversaries</h6><small class="notification-text">Mar 15 12:32pm</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="d-flex justify-content-between read-notification cursor-pointer">
-                                    <div class="media d-flex align-items-center">
-                                        <div class="media-left pr-0">
-                                            <div class="avatar mr-1 m-0"><img src="../../../app-assets/images/portrait/small/avatar-s-16.jpg" alt="avatar" height="39" width="39"></div>
-                                        </div>
-                                        <div class="media-body">
-                                            <h6 class="media-heading"><span class="text-bold-500">New Message</span> received</h6><small class="notification-text">You have 18 unread messages</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between cursor-pointer">
-                                    <div class="media d-flex align-items-center py-0">
-                                        <div class="media-left pr-0"><img class="mr-1" src="../../../app-assets/images/icon/sketch-mac-icon.png" alt="avatar" height="39" width="39"></div>
-                                        <div class="media-body">
-                                            <h6 class="media-heading"><span class="text-bold-500">Updates Available</span></h6><small class="notification-text">Sketch 50.2 is currently newly added</small>
-                                        </div>
-                                        <div class="media-right pl-0">
-                                            <div class="row border-left text-center">
-                                                <div class="col-12 px-50 py-75 border-bottom">
-                                                    <h6 class="media-heading text-bold-500 mb-0">Update</h6>
-                                                </div>
-                                                <div class="col-12 px-50 py-75">
-                                                    <h6 class="media-heading mb-0">Close</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between cursor-pointer">
-                                    <div class="media d-flex align-items-center">
-                                        <div class="media-left pr-0">
-                                            <div class="avatar bg-primary bg-lighten-5 mr-1 m-0 p-25"><span class="avatar-content text-primary font-medium-2">LD</span></div>
-                                        </div>
-                                        <div class="media-body">
-                                            <h6 class="media-heading"><span class="text-bold-500">New customer</span> is registered</h6><small class="notification-text">1 hrs ago</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="cursor-pointer">
-                                    <div class="media d-flex align-items-center justify-content-between">
-                                        <div class="media-left pr-0">
-                                            <div class="media-body">
-                                                <h6 class="media-heading">New Offers</h6>
-                                            </div>
-                                        </div>
-                                        <div class="media-right">
-                                            <div class="custom-control custom-switch">
-                                                <input class="custom-control-input" type="checkbox" checked id="notificationSwtich">
-                                                <label class="custom-control-label" for="notificationSwtich"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between cursor-pointer">
-                                    <div class="media d-flex align-items-center">
-                                        <div class="media-left pr-0">
-                                            <div class="avatar bg-danger bg-lighten-5 mr-1 m-0 p-25"><span class="avatar-content"><i class="bx bxs-heart text-danger"></i></span></div>
-                                        </div>
-                                        <div class="media-body">
-                                            <h6 class="media-heading"><span class="text-bold-500">Application</span> has been approved</h6><small class="notification-text">6 hrs ago</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between read-notification cursor-pointer">
-                                    <div class="media d-flex align-items-center">
-                                        <div class="media-left pr-0">
-                                            <div class="avatar mr-1 m-0"><img src="../../../app-assets/images/portrait/small/avatar-s-4.jpg" alt="avatar" height="39" width="39"></div>
-                                        </div>
-                                        <div class="media-body">
-                                            <h6 class="media-heading"><span class="text-bold-500">New file</span> has been uploaded</h6><small class="notification-text">4 hrs ago</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between cursor-pointer">
-                                    <div class="media d-flex align-items-center">
-                                        <div class="media-left pr-0">
-                                            <div class="avatar bg-rgba-danger m-0 mr-1 p-25">
-                                                <div class="avatar-content"><i class="bx bx-detail text-danger"></i></div>
-                                            </div>
-                                        </div>
-                                        <div class="media-body">
-                                            <h6 class="media-heading"><span class="text-bold-500">Finance report</span> has been generated</h6><small class="notification-text">25 hrs ago</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between cursor-pointer">
-                                    <div class="media d-flex align-items-center border-0">
-                                        <div class="media-left pr-0">
-                                            <div class="avatar mr-1 m-0"><img src="../../../app-assets/images/portrait/small/avatar-s-16.jpg" alt="avatar" height="39" width="39"></div>
-                                        </div>
-                                        <div class="media-body">
-                                            <h6 class="media-heading"><span class="text-bold-500">New customer</span> comment recieved</h6><small class="notification-text">2 days ago</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="dropdown-menu-footer"><a class="dropdown-item p-50 text-primary justify-content-center" href="javascript:void(0)">Read all notifications</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                            <div class="user-nav d-lg-flex d-none"><span class="user-name">{{ Auth::user()->name }}</span><span class="user-status">{{ transWord('Online') }}</span></div><span><img class="round" src="../../../app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40"></span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right pb-0">
-                            <a class="dropdown-item" href="page-user-profile.html"><i class="bx bx-user mr-50"></i> Edit Profile</a>
-                            <a class="dropdown-item" href="app-email.html"><i class="bx bx-envelope mr-50"></i> My Inbox</a>
-                            <a class="dropdown-item" href="app-todo.html"><i class="bx bx-check-square mr-50"></i> Task</a>
-                            
-                            @can('show_settings')
-                            <a class="dropdown-item" href="{{ menuActive('main-settings',3) }}"><i class="bx bx-message mr-50"></i> {{ transWord('Settings') }}</a>
-                            @endcan
-                            
-                            <div class="dropdown-divider mb-0"></div><a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
-                            <i class="icon-power"></i> {{ transWord('Logout') }}
-                        </a>
-                        <form id="logout-form" action="{{ route('logout_users') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                        </div>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
-</nav>
+</div>
