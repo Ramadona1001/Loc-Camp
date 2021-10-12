@@ -17,4 +17,8 @@ interface RoleRepositoryInterface
     public function getPermissions($id);
 
     public function assignPermissions($id, $request);
+
+    public function getUserPermissions($id);
+
+    public function assignUserPermissions($id,$request);
 }

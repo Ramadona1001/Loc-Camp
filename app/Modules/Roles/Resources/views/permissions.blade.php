@@ -1,39 +1,32 @@
 @extends('layouts.master')
 
-@section('title',transWord('Assign Permissions'))
-
-@section('stylesheet')
-
-@endsection
+@section('title',$title)
 
 @section('content')
 
-    <div class="alert alert-info" role="alert" style="text-align: center;color: #87898e; background-color: #282b2f; border-color: #282b2f;">
-        <h5>{{ $role->name.' '.transWord('Role') }}</h5>
-    </div>
-
+    <h2 class="text-center mb-5">{{ $role->name }}</h2>
     <div class="row">
         @foreach ($permissionsName as $permissionName)
-        <div class="col-lg-6">
-            <div class="card card-custom gutter-b" style="border-top: 5px solid #87898e;">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h3 class="card-label">
+        <div class="col-lg-6 mb-5">
+            <div class="ongoing-task-inner notika-shadow mg-t-30">
+                <div class="realtime-ctn">
+                    <div class="realtime-title ongoing-hd-wd">
+                        <h4 class="card-label">
                             {{ ucfirst($permissionName).' ('.transWord("Permissions").')' }}
-                        </h3>
+                        </h4>
                     </div>
                 </div>
-                <div class="card-body">
+
+                <div class="skill-content-3 ongoing-tsk">
                     @foreach ($permissions as $permission)
                         @if (explode('_',$permission->name)[1] == $permissionName)
                             <div class="row">
-                                <div class="fancy-checkbox">
-                                    @if (in_array($permission->id,$assignedPermissions))
-                                        <label><input class="permissionCheck" value="{{ $permission->id }}" type="checkbox" checked><span>&nbsp;{{ ucwords(str_replace('_',' ',$permission->name)) }}</span></label>
-                                    @else
-                                        <label><input class="permissionCheck" value="{{ $permission->id }}" type="checkbox"><span>&nbsp;{{ ucwords(str_replace('_',' ',$permission->name)) }}</span></label>
-                                    @endif
-                                </div>
+                                @if (in_array($permission->id,$assignedPermissions))
+                                <input type="checkbox" class="myinput large custom permissionCheck" name="" id="{{ $permission->id }}" value="{{ $permission->id }}" name="permissions[]" checked style="margin-left: 20px;margin-right:20px;">
+                                @else
+                                <input type="checkbox" class="myinput large custom permissionCheck" name="" id="{{ $permission->id }}" value="{{ $permission->id }}" name="permissions[]" style="margin-left: 20px;margin-right:20px;">
+                                @endif
+                                <label for="{{ $permission->id }}">{{ ucwords(str_replace('_',' ',$permission->name)) }}</label>
                             </div>
                         @endif
                     @endforeach
@@ -43,7 +36,6 @@
         @endforeach
     </div>
 @endsection
-
 @section('javascript')
 
 

@@ -3,6 +3,7 @@
 
 namespace Roles\Repositories;
 
+use App\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -10,7 +11,7 @@ class RoleRepository implements RoleRepositoryInterface
 {
     public function allData(){
 //        dd(Role::all());
-        return Role::all();
+        return Role::paginate(16);
     }
 
     public function dataWithConditions( $conditions){
@@ -77,6 +78,30 @@ class RoleRepository implements RoleRepositoryInterface
 
     }
 
+    public function getUserPermissions($id){
+        $user = User::findOrfail($id);
+        $permissions = Permission::all();
+        $permissionsOfUser = $user->getAllPermissions();
+        $assignedPermissions = [];
+        foreach ($permissionsOfUser as $permssion) {
+            array_push($assignedPermissions,$permssion->id);
+        }
+        $permissionsName = [];
+        foreach ($permissions as $p) {
+            if (!in_array(explode('_',$p->name)[1],$permissionsName)) {
+                array_push($permissionsName,explode('_',$p->name)[1]);
+            }
+        }
+
+        return [
+            $permissionsName,
+            $user,
+            $permissions,
+            $assignedPermissions
+        ];
+
+    }
+
     public function assignPermissions($id,$request){
         if ($request->ajax()) {
             // dd($request->permissions);
@@ -90,6 +115,24 @@ class RoleRepository implements RoleRepositoryInterface
             if($request->permissions == null){
                 $role = Role::findOrfail($request->role_id);
                 $role->syncPermissions();
+            }
+            return response()->json('200');
+        }
+    }
+
+    public function assignUserPermissions($id,$request){
+        if ($request->ajax()) {
+            // dd($request->permissions);
+            if(isset($request->permissions)){
+                $user = User::findOrfail($id);
+                $user->syncPermissions();
+                foreach ($request->permissions as $permission) {
+                    $user->givePermissionTo(Permission::findOrfail($permission)->name);
+                }
+            }
+            if($request->permissions == null){
+                $user = User::findOrfail($id);
+                $user->syncPermissions();
             }
             return response()->json('200');
         }
